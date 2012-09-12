@@ -1,5 +1,22 @@
+/*
+ * Modulite.js v0.0.1
+ * http://github.com/zfedoran/modulite.js
+ *
+ * Modulite.js is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT license.
+ *
+ * Copyright (C) 2012 - Zelimir Fedoran
+ *
+ */
+
 (function(root){
 
+  // Base modulite object
+  var modulite = root.modulite = root.ml = {
+    version : '0.0.1',
+  };
+
+  // Base library path for modules, set this using the public function
   var _basePath = ''
     
     // Modules which have been required but not yet added to the DOM
@@ -20,10 +37,11 @@
     // The current module definition in a ml.module().requires().define() block
     , _currentModuleDef = null;
 
-  // Base modulite object
-  var modulite = root.modulite = root.ml = {
-    version : '0.0.1',
-  };
+  // This function sets the base library path for all of your modules
+  modulite.libraryPath = function(path){
+    _basePath = path;
+    return this;
+  }
 
   // This function begins a new module
   modulite.module = function(name){
@@ -66,12 +84,6 @@
     
     // Check if we can load or execute any modules at this time
     _resolveDependencies();
-    return this;
-  }
-
-  // This function sets the base library path for all of your modules
-  modulite.libraryPath = function(path){
-    _basePath = path;
     return this;
   }
 
