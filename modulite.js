@@ -1,5 +1,5 @@
 /*
- * Modulite.js v0.0.1
+ * Modulite.js v0.0.2
  * http://github.com/zfedoran/modulite.js
  *
  * Modulite.js is free software: you can redistribute it and/or modify
@@ -13,7 +13,7 @@
 
   // Base modulite object
   var modulite = root.modulite = root.ml = {
-    version : '0.0.1',
+    version : '0.0.2',
   };
 
   // Base library path for modules, set this using the public function
@@ -35,7 +35,10 @@
     , _numWaitingToExecute = 0
 
     // The current module definition in a ml.module().requires().define() block
-    , _currentModuleDef = null;
+    , _currentModuleDef = null
+
+    // A list of all executed module callbacks sorted by order of dependencies
+    , _callbackStack = [];
 
   // This function sets the base library path for all of your modules
   modulite.libraryPath = function(path){
@@ -85,6 +88,13 @@
     // Check if we can load or execute any modules at this time
     _resolveDependencies();
     return this;
+  }
+
+  // Get a list of all executed module callbacks sorted by dependencies.
+  // This is supplied for debugging purposes, but it can be used to minify
+  // the applicaiton into a single Javascript file.
+  modulite.getCallbackStack = function(){
+    return _callbackStack;
   }
 
   // This function does most of the hard work in determining which modules to 
@@ -177,8 +187,13 @@
     _executedModules[module.name] = module;
     
     console.log('Loading Module [' + module.name + ']');
-    if(module.callback)
+    if(module.callback){
       module.callback();
+
+      // Push the module callback onto the callback stack
+      // This is useful for debugging purposes
+      _callbackStack.push(module.callback);
+    }
   }
 
   return modulite;
