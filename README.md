@@ -1,20 +1,25 @@
 modulite.js
 ===========
 
-Modulite.js is a simple and lightweight javascript module loader.
+Modulite.js is a lightweight javascript module loader.
 
 
-**Example**
+**Usage**
 
     
-    ml.module('game.camera')
+    ml.module('game')
     .requires(
       'game.level',
       'game.entity',
-      'game.enemies.sponge',
+      'game.enemies.tank',
       'game.enemies.spike',
       'assets.loader',
       'math')
     .defines(function(){
       // ... code for this module
     });
+    
+
+**Example**
+
+For a complete sample project, check out <a href="https://github.com/zfedoran/modulite-threejs">modulite-threejs</a>.
