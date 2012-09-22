@@ -6,19 +6,22 @@ Modulite.js is a lightweight javascript module loader.
 
 **Usage**
 
-    
-    ml.module('game')
-    .requires(
-      'game.level',
-      'game.entity',
-      'game.enemies.tank',
-      'game.enemies.spike',
-      'assets.loader',
-      'math')
-    .defines(function(){
-      // ... code for this module
-    });
-    
+```javascript
+ml.module(
+  'game.some-file'
+)
+.requires(
+  'core.vector3',
+  'core.matrix',
+  'core.camera3d',
+  'game.enemies.tank',
+  'assets.loader',
+  'math.helper'
+)
+.defines(function(){
+  // ... code for this module
+});
+```
 
 **Example**
 
