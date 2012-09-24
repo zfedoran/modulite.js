@@ -23,6 +23,14 @@ ml.module(
 });
 ```
 
+**Baking**
+
+Once you have finished your project, you can bake all of your files into a single file using the modulite `bakeCurrentStack()` function.
+
+```javascript
+ml.bakeCurrentStack();
+```
+
 **Example**
 
 For a complete sample project, check out <a href="https://github.com/zfedoran/modulite-threejs">modulite-threejs</a>.
