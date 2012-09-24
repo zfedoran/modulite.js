@@ -1,5 +1,5 @@
 /*
- * Modulite.js v0.0.2
+ * Modulite.js v0.0.3
  * http://github.com/zfedoran/modulite.js
  *
  * Modulite.js is free software: you can redistribute it and/or modify
