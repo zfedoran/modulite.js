@@ -42,10 +42,7 @@
     
     // A list of events that can be bound to using modulite.on()
     , _events = {
-        'onModule'    : []
-      , 'onRequires'  : []
-      , 'onDefines'   : []
-      , 'onExecute'   : []
+        'module': [], 'requires': [], 'defines': [], 'execute': []
     };
 
   // This function sets the base library path for all of your modules
@@ -63,7 +60,7 @@
     _currentModuleDef = { name : name, dependencies : {}, callback : null };
 
     // Call any assigned callbacks
-    _triggerEvents('onModule', _currentModuleDef.name);
+    _triggerEvents('module', _currentModuleDef.name);
     return this;
   }
 
@@ -75,7 +72,7 @@
     _currentModuleDef.dependencies = Array.prototype.slice.call(arguments);
 
     // Call any assigned callbacks
-    _triggerEvents('onRequires', _currentModuleDef.name);
+    _triggerEvents('requires', _currentModuleDef.name);
     return this;
   }
 
@@ -89,7 +86,7 @@
     _loadedModuleDefinitions[_currentModuleDef.name] = _currentModuleDef;
     
     // Call any assigned callbacks
-    _triggerEvents('onDefines', _currentModuleDef.name);
+    _triggerEvents('defines', _currentModuleDef.name);
     
     // This function would only be called once the module has been added to
     // the DOM. Once the script tag has been added, we are no longer loading
@@ -166,7 +163,7 @@
     for (var key in eventList){
       var currentEvent = eventList[key];
       var args = Array.prototype.slice.call(arguments,1);
-      currentEvent.apply(currentEvent.context, args);
+      currentEvent.callback.apply(currentEvent.context, args);
     }
   }
   
@@ -203,7 +200,7 @@
         _numWaitingToExecute--;       
 
         // Call any assigned callbacks
-        _triggerEvents('onExecute', moduleName);
+        _triggerEvents('execute', moduleName);
       }
     }
 
