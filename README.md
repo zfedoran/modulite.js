@@ -23,6 +23,8 @@ project/
             ...
 ```
 
+**Project Structure**
+
 Add modulite.js to the javascripts directory. Your directory structure should now look like this:
 
 ```
@@ -41,6 +43,8 @@ project/
             ...
 ```
 
+**HTML File**
+
 To load modules using modulite.js, you must first load modulite.js. Simply add a link to modulite.js relative to your index.html file.
 
 ```html
@@ -56,6 +60,8 @@ To load modules using modulite.js, you must first load modulite.js. Simply add a
 </body>
 </html>
 ```
+
+**Modules**
 
 Note that we only need to reference two JavaScript files, modulite.js will automatically import any files referenced by game.js. Inside of game.js, you can use requires() to load any other scripts you need to run. Your game.js might look something like this:
 
@@ -105,11 +111,21 @@ ml.module(
 });
 ```
 
+**ml.module()**
+
 Lets look at what is going on in this file. The first line starts with `ml.module`. This function simply tells modulite what you are calling the module defined in this file. Note that we can also use `modulite.module` instead.  
+
+**ml.requires()**
 
 Next we tell modulite.js which modules are required by the current module. The module names are important here, they should look like the path to the files. If you need more control over the module paths, it is possible to setup namespace paths using the `ml.config()` function. 
 
-For instance, if my game engine was contained outside the `javascripts` directory, we could use something like the following:
+**ml.defines()**
+
+Finally, `ml.defines()` declares the body of our module. The callback passed to `ml.defines()` will only be called once all of the required dependencies have been loaded.
+
+**ml.config()**
+
+If my game engine was contained outside the `javascripts` directory, we could use something like the following:
 
 ```javascript
 // set paths to module namespaces
@@ -132,8 +148,6 @@ ml.module(
 // etc...
 ```
 
-Finally, `ml.defines()` declares the body of our module. The callback passed to `ml.defines()` will only be called once all of the required dependencies have been loaded.
-
 Baking
 ======
 
@@ -147,3 +161,4 @@ Example
 =======
 
 For a complete sample project, check out <a href="https://github.com/zfedoran/modulite-threejs">modulite-threejs</a>.
+
