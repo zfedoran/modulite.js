@@ -137,7 +137,6 @@ ml.config({
 });
 ```
 
-
 ## Baking
 
 Once you have finished your project, you can bake all of your files into a single file using the modulite bakeCurrentStack function.
@@ -147,6 +146,89 @@ ml.bakeCurrentStack();
 // opens a new window with the baked source code
 ```
 
+## API
+
+### ml.module()
+Begins a new module. 
+```javascript
+//example usage:
+ml.module('name.of.module');
+```
+
+### ml.requires()
+Declare the dependencies for the current module definition.
+```javascript
+//example usage:
+ml.requires('a', 'b', 'c'/*, etc...*/);
+```
+
+### ml.defines()
+Sets the callback to execute once all of the dependencies for the current module definition have been loaded and executed.
+```javascript
+//example usage:
+ml.module(function(){
+  console.log('hello, world');
+});
+```
+
+### ml.config()
+This function allows you to configure custom library paths.
+```javascript
+//example usage:
+ml.config({
+    'something': 'a/b/c/something/'
+  , 'another': '../../crazy/path/to/another/'
+});
+```
+
+### ml.disableBrowserCaching()
+Disable the sometimes annoying browser caching for modules.
+```javascript
+//example usage:
+ml.disableBrowserCaching(true);
+```
+
+### ml.on()
+Bind a function to a modulite event. Valid events are: `'module'`, `'requires'`, `'define'`, and `'execute'`.
+```javascript
+//example usage:
+var callback = function(name){ console.log('executed: ' + name); };
+ml.on('execute', callback, this);
+```
+
+### ml.off()
+Remove a bound function from a modulite event.
+```javascript
+//example usage:
+var callback = function(name){ console.log('executed: ' + name); };
+ml.on('execute', callback, this);
+
+...
+
+ml.off('execute', callback, this);
+```
+
+### ml.getCallbackStack()
+Get a list of all executed module callbacks sorted by dependencies.
+```javascript
+//example usage:
+ml.getCallbackStack();
+-> [moduleA, moduleB, moduleC]
+```
+
+### ml.bakeCurrentStackString()
+Bake all currently loaded modules into a single string, sorted by dependencies.
+```javascript
+//example usage:
+ml.bakeCurrentStackString();
+```
+
+### ml.bakeCurrentStack()
+Bake all currently loaded modules into a single string, sorted by dependencies and redirect the browser to the result.
+```javascript
+//example usage:
+ml.bakeCurrentStack();
+```
 
 ---
 ---
