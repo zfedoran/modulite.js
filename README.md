@@ -6,6 +6,8 @@ Modulite.js is a lightweight javascript module loader.
 Getting Started
 ===============
 
+**Directory Structure**
+
 This setup assumes you keep all your JavaScript files in a "javascripts" directory in your project. For example, if you have a project that has an index.html page, with some scripts, the directory layout might look like so:
 
 ```
@@ -22,8 +24,6 @@ project/
             math.js
             ...
 ```
-
-**Project Structure**
 
 Add modulite.js to the javascripts directory. Your directory structure should now look like this:
 
@@ -45,7 +45,7 @@ project/
 
 **HTML File**
 
-To load modules using modulite.js, you must first load modulite.js. Simply add a link to modulite.js relative to your index.html file.
+To get started with modulite.js, add a `<script>` tag with the `src=""` attribute pointing to the location of modulite.js relative to your index.html file.
 
 ```html
 <!DOCTYPE html>
@@ -61,9 +61,11 @@ To load modules using modulite.js, you must first load modulite.js. Simply add a
 </html>
 ```
 
-**Modules**
+Note that we only need to reference two JavaScript files, modulite.js will automatically import any files referenced by game.js. You can use `ml.requires()` to load any other scripts you need. 
 
-Note that we only need to reference two JavaScript files, modulite.js will automatically import any files referenced by game.js. Inside of game.js, you can use requires() to load any other scripts you need to run. Your game.js might look something like this:
+**Using Modulite.js**
+
+Your game.js might look something like this:
 
 ```javascript
 // set paths to module namespaces
@@ -111,50 +113,41 @@ ml.module(
 });
 ```
 
-**ml.module()**
+Lets look at what is going on in this file. The first line starts with a call to `ml.module()`. This function simply tells modulite what you are calling the module defined in this file. Note that we can also use `modulite.module()` instead.  
 
-Lets look at what is going on in this file. The first line starts with `ml.module`. This function simply tells modulite what you are calling the module defined in this file. Note that we can also use `modulite.module` instead.  
-
-**ml.requires()**
-
-Next we tell modulite.js which modules are required by the current module. The module names are important here, they should look like the path to the files. If you need more control over the module paths, it is possible to setup namespace paths using the `ml.config()` function. 
-
-**ml.defines()**
+Next we tell modulite.js which modules are required by the current module definition. The module names are important here, they should look like the path to the files. If you need more control over the module paths, it is possible to setup namespace paths using the `ml.config()` function. 
 
 Finally, `ml.defines()` declares the body of our module. The callback passed to `ml.defines()` will only be called once all of the required dependencies have been loaded.
 
-**ml.config()**
+**Custom Paths**
 
-If my game engine was contained outside the `javascripts` directory, we could use something like the following:
+If want more control over the project directory structure, you can use the `ml.config()` function. For example, lets move the `engine/` directory, from the example above, up to its parent directory. Since `engine/` is now outside the `javascripts/` directory, we need to tell modulite where to look when it is told to load a module from the `engine.<something>` namespace. The following function call will set that up for us:
 
 ```javascript
-// set paths to module namespaces
 ml.config({
-  'util': 'util/',
-  'engine': '../engine/'
-});
-
-ml.module(
-  'game'
-)
-.requires(
-  'util.math',
-  'engine.vector3',
-  'engine.matrix',
-  'engine.camera3d',
+    'engine': '../engine/' // the game engine is in another directory!
+  , 'somethingElse': '../../crazy/path/to/somethingElse'
   // etc...
-)
-.defines(function(){
-// etc...
+});
 ```
+
+The config function can also be used to create shorter or easier to remember namespaces. For example, lets pretend that the name `engine/` is too long. We can use the following config call to change it to something shorter.
+
+```javascript
+ml.config({
+  'en': 'engine/' // we can now use ml.module('game').requires('en.vector2d')
+});
+```
+
 
 Baking
 ======
 
-Once you have finished your project, you can bake all of your files into a single file using the modulite `bakeCurrentStack()` function.
+Once you have finished your project, you can bake all of your files into a single file using the modulite bakeCurrentStack function.
 
 ```javascript
 ml.bakeCurrentStack();
+// opens a new window with the baked source code
 ```
 
 Example
