@@ -68,20 +68,13 @@ Note that we only need to reference two JavaScript files, modulite.js will autom
 Your game.js might look something like this:
 
 ```javascript
-// set paths to module namespaces
-ml.config({
-  'util': 'util/',
-  'core': 'engine/'
-});
-
 ml.module(
   'game'
 )
 .requires(
   'util.math',
-  'core.vector3',
-  'core.matrix',
-  'core.camera3d',
+  'engine.camera3d',
+  'engine.vector3',
   // etc...
 )
 .defines(function(){
@@ -89,6 +82,9 @@ ml.module(
   var Game = function(){
     this.width = 720;
     this.height = 480;
+    this.camera = new Camera3d();
+    this.camera.position = new Vector3(0, 10, 0);
+    this.camera.target = new Vector3(5, 10, 5);
   }
 
   Game.prototype = {
