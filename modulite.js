@@ -54,7 +54,7 @@
     return this;
   }
 
-  // This function allows you to configure paths to smaller namespaces
+  // This function allows you to disable the sometimes annoying browser caching for modules 
   modulite.disableBrowserCaching = function(shouldDisable){
     if (shouldDisable) _noCaching = '?' + Math.random().toString().substr(2);
     else _noCaching = '';
