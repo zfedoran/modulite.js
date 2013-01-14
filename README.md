@@ -3,7 +3,7 @@
 
 Modulite.js is a lightweight javascript module loader. 
 
-For an example of how to integrate modulite.js with three.js, check out the [modulite-threejs](https://github.com/zfedoran/modulite-threejs) project.
+For an example of how to integrate modulite.js with three.js, check out the [modulite-three.js](https://github.com/zfedoran/modulite-three.js) project.
 
 
 ## Getting Started
@@ -230,9 +230,8 @@ Bake all currently loaded modules into a single string, sorted by dependencies a
 ml.bakeCurrentStack();
 ```
 
+<br>
 ---
 ---
 
-## Acknowledgements
-
-The module definition syntax for modulite.js is inspired by the [Impact.js](http://impactjs.com/documentation/getting-started#modules) module system written by [Dominic Szablewski](http://www.phoboslab.org/).
+The module definition syntax for modulite.js is inspired by the [Impact.js](http://impactjs.com/documentation/getting-started#modules) module system written by [Dominic Szablewski](https://github.com/phoboslab).
